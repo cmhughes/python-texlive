@@ -1,0 +1,44 @@
+name: Release GitHub Container Registry Package
+# PURPOSE:
+#
+#  1. *build* python-texlive docker image
+#  2. *publish* python-texlive docker image to https://github.com/cmhughes?tab=packages
+#
+# Note: this action only runs on *each release*, i.e. when tags are pushed
+#
+#       GHCR: GitHub Container Registry
+#
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  python-texlive-ghcr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+        id: buildx
+        with:
+          install: true
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=match,pattern=V(.*),group=1
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: get python-texlive tag
+        run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
