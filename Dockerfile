@@ -1,5 +1,11 @@
 FROM python:3.12-slim-bookworm
 
+# Install python libraries
+RUN pip install --upgrade pip && \
+    pip install pyyaml        && \
+    pip install re            && \
+    pip install argparse      
+
 # Install the needed tools.
 RUN apt update && apt install --no-install-recommends -y wget perl-tk && \
     apt clean && rm -rf /var/lib/apt/lists/*
@@ -10,7 +16,7 @@ RUN wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.g
     echo "selected_scheme scheme-full" > profile && \
     echo "tlpdbopt_install_docfiles 0" >> profile && \
     echo "tlpdbopt_install_srcfiles 0" >> profile && \
-    ./install-tl -repository https://mirror.ctan.org/systems/texlive/tlnet -profile profile && \
+    ./install-tl --no-doc-install --no-src-install -repository https://mirror.ctan.org/systems/texlive/tlnet -profile profile && \
     cd .. && rm -rf install-tl
 
 # Make TeX Live tools available on path.
