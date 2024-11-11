@@ -1,10 +1,10 @@
 FROM python:3.12-slim-bookworm
 
 # Install python libraries
-# RUN pip install --upgrade pip && \
-#     pip install pyyaml        && \
-#     pip install re            && \
-#     pip install argparse      
+RUN pip install --upgrade pip && \
+    pip install pyyaml        && \
+    pip install re            && \
+    pip install argparse      
 
 # Install the needed tools.
 RUN apt update && apt install --no-install-recommends -y wget perl-tk && \

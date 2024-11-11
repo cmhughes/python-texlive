@@ -11,6 +11,9 @@ name: Release GitHub Container Registry Package
 
 on:
   push:
+     tags:
+       - '*'
+
 
 jobs:
   python-texlive-ghcr:
