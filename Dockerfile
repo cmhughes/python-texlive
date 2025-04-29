@@ -17,7 +17,7 @@ RUN wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.g
     cd .. && rm -rf install-tl
 
 # Make TeX Live tools available on path.
-ENV PATH="${PATH}:/usr/local/texlive/2024/bin/x86_64-linux"
+ENV PATH="${PATH}:/usr/local/texlive/2025/bin/x86_64-linux"
 
 # Set the working directory (to be used when mounting files from the host).
 WORKDIR /workdir
