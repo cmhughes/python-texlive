@@ -1,10 +1,7 @@
-FROM python:3.12-slim-bookworm
+FROM python:3
 
 # Install python libraries
-RUN pip install --upgrade pip && \
-    pip install pyyaml        && \
-    pip install re            && \
-    pip install argparse      
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir pyyaml
 
 # Install the needed tools.
 RUN apt update && apt install --no-install-recommends -y wget perl-tk && \

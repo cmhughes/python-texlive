@@ -15,8 +15,6 @@ $ # Also add -u $(id -u):$(id -g) to avoid file permission issues.
 $ docker run --rm -it -v "${PWD}:/workdir" claudiugeorgiu/python-texlive <tex-command>
 ```
 
-
-
 ## License
 
 You are free to use this code under the
